@@ -8,23 +8,24 @@ public enum UnitTeam
     Enemy
 }
 
+[System.Serializable]
 public class UnitController : MonoBehaviour
 {
-    private GameObject m_Unit;
-    private float m_Hp = 1;
-    private float m_Speed = 1;
-    private Rigidbody m_Rigidbody;
-    private UnitTeam m_Team;
+    [SerializeField] private GameObject m_Unit;
+    [SerializeField] private float m_Hp = 1;
+    [SerializeField] private float m_Speed = 1;
+    [SerializeField] private Rigidbody m_Rigidbody;
+    [SerializeField] private UnitTeam m_Team;
     
     
-
+/*
     public void Init(float hp, float speed, UnitTeam team,GameObject gameObject){
         m_Hp = hp;
         m_Speed = speed; 
         m_Team = team;
         m_Unit = gameObject;
         m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
-    }
+    }*/
 
     // Update is called once per frame
     private void FixedUpdate() {

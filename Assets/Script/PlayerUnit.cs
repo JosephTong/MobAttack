@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerUnit : UnitController
 {
+    private void Start() {
+        SetHp(GetHp());
+    }
 
     void OnCollisionEnter(Collision collision)
     {
