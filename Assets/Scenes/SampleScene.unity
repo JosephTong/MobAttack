@@ -389,7 +389,6 @@ GameObject:
   - component: {fileID: 424142572}
   - component: {fileID: 424142575}
   - component: {fileID: 424142574}
-  - component: {fileID: 424142573}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -412,29 +411,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1623358393}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &424142573
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424142571}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &424142574
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -785,6 +761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623358393}
+  - component: {fileID: 1623358394}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -808,6 +785,19 @@ Transform:
   - {fileID: 424142572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623358394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623358392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82880ced5d282f342870eaa870d6cfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TimePerShot: 1
 --- !u!1 &776776787844266669
 GameObject:
   m_ObjectHideFlags: 0
