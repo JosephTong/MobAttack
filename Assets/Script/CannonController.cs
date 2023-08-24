@@ -18,8 +18,9 @@ public class CannonController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(MainGameManager.GetInstance().IsGameStart())
+        if(!MainGameManager.GetInstance().IsGameStart()){
             return;
+        }
 
 
         if (m_WaitTime > m_TimePerShot)

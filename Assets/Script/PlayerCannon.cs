@@ -9,6 +9,10 @@ public class PlayerCannon : CannonController
     [SerializeField] private Transform m_Cannon;
     void Update()
     {
+        
+        if(!MainGameManager.GetInstance().IsGameStart()){
+            return;
+        }
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePos = Input.mousePosition;

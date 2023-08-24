@@ -31,7 +31,7 @@ public class UnitController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate() {
 
-        if(m_Hp<=0|| m_IsBase || MainGameManager.GetInstance().IsGameStart())
+        if(m_Hp<=0|| m_IsBase || !MainGameManager.GetInstance().IsGameStart())
             return;
 
         m_Rigidbody.velocity = new Vector3(
