@@ -16,6 +16,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] private float m_Speed = 1;
     [SerializeField] private Rigidbody m_Rigidbody;
     [SerializeField] private UnitTeam m_Team;
+    [SerializeField] private bool m_IsBase = false;
     
     
 /*
@@ -29,6 +30,8 @@ public class UnitController : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate() {
+        if(m_Hp<=0|| m_IsBase)
+            return;
 
         m_Rigidbody.velocity = new Vector3(
             0,
@@ -47,10 +50,11 @@ public class UnitController : MonoBehaviour
 
         m_Hp = hp;
 
-        m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
+        if(!m_IsBase)
+            m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
 
         if(hp<=0){
-            Destroy(m_Unit,1);
+            Destroy(m_Unit,0.5f);
         }
     }
 
