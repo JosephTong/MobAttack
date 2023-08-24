@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerUnit : UnitController
 {
     private List<int> m_CollidedId = new List<int>();
+    private bool m_IsAuto = false;
     private void Start()
     {
         SetHp(GetHp());
@@ -15,7 +16,8 @@ public class PlayerUnit : UnitController
         m_CollidedId.Add(id);
     }
 
-    void OnTriggerEnter(Collider collision) {
+    public override void OnTriggerEnter(Collider collision) {
+        base.OnTriggerEnter(collision);
         if (collision.gameObject.layer == 12)
         {
             // Number Panel
@@ -51,6 +53,9 @@ public class PlayerUnit : UnitController
                     }
                 }
             }
+        }else if (collision.gameObject.layer == 14){
+            // auto
+            m_IsAuto = true;
         }
     }
 

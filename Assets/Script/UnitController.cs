@@ -30,7 +30,8 @@ public class UnitController : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate() {
-        if(m_Hp<=0|| m_IsBase)
+
+        if(m_Hp<=0|| m_IsBase || MainGameManager.GetInstance().IsGameStart())
             return;
 
         m_Rigidbody.velocity = new Vector3(
@@ -51,7 +52,7 @@ public class UnitController : MonoBehaviour
         m_Hp = hp;
 
         if(!m_IsBase)
-            m_Unit.transform.localScale = Vector3.one * ( Mathf.Min(Mathf.Max(1, 1+m_Hp*0.1f) ,3));
+            m_Unit.transform.localScale = Vector3.one * ( Mathf.Min( Mathf.Max(1, 1 + m_Hp*0.1f) ,3));
 
         if(hp<=0){
             Destroy(m_Unit,0.5f);
@@ -62,5 +63,11 @@ public class UnitController : MonoBehaviour
         return m_Hp;
     }
 
-
+    public virtual void OnTriggerEnter(Collider collision) {
+        if (collision.gameObject.layer == 13)
+        {
+            // Killer
+            SetHp(0);
+        }
+    }
 }
