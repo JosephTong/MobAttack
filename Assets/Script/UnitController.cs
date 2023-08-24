@@ -11,22 +11,22 @@ public enum UnitTeam
 [System.Serializable]
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] private GameObject m_Unit;
-    [SerializeField] private float m_Hp = 1;
-    [SerializeField] private float m_Speed = 1;
-    [SerializeField] private Rigidbody m_Rigidbody;
-    [SerializeField] private UnitTeam m_Team;
-    [SerializeField] private bool m_IsBase = false;
+    [SerializeField] protected GameObject m_Unit;
+    [SerializeField] protected float m_Hp = 1;
+    [SerializeField] protected float m_Speed = 1;
+    [SerializeField] protected Rigidbody m_Rigidbody;
+    [SerializeField] protected UnitTeam m_Team;
+    [SerializeField] protected bool m_IsBase = false;
     
     
-/*
+
     public void Init(float hp, float speed, UnitTeam team,GameObject gameObject){
         m_Hp = hp;
         m_Speed = speed; 
         m_Team = team;
         m_Unit = gameObject;
-        m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
-    }*/
+        //m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
+    }
 
     // Update is called once per frame
     private void FixedUpdate() {
@@ -51,7 +51,7 @@ public class UnitController : MonoBehaviour
         m_Hp = hp;
 
         if(!m_IsBase)
-            m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
+            m_Unit.transform.localScale = Vector3.one * ( Mathf.Min(Mathf.Max(1, 1+m_Hp*0.1f) ,3));
 
         if(hp<=0){
             Destroy(m_Unit,0.5f);
