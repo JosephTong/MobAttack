@@ -235,6 +235,23 @@ public class MainGameManager : MonoBehaviour
         return targetPos;
     }
 
+    public void Lose(){
+        m_IsStart = false;
+
+        // destory all enemy unit
+        for (int i = 0; i < m_EnemyUnitParent.childCount; i++)
+        {
+            Destroy(m_EnemyUnitParent.GetChild(i).gameObject);
+        }
+
+        // destory all player unit
+        for (int i = 0; i < m_PlayerUnitParent.childCount; i++)
+        {
+            Destroy(m_PlayerUnitParent.GetChild(i).gameObject);
+        }
+        TurnOffAllPanel();
+        m_LosePanel.SetActive(true);
+    }
     
     private void TurnOffAllPanel(){
         m_MainMenu.SetActive(false);

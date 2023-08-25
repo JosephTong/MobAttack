@@ -63,14 +63,17 @@ public class UnitController : MonoBehaviour
     }
 
     public float GetHp(){
-        return m_Hp;
+        return Mathf.Max(m_Hp,0);
     }
 
     public virtual void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.layer == 13)
         {
-            // Killer
-            SetHp(0);
+            // kill player if enemy touch bottom
+            if(m_Team == UnitTeam.Enemy){
+                // lose
+                MainGameManager.GetInstance().Lose();
+            }
         }
     }
 }
