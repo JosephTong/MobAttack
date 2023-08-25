@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] protected Rigidbody m_Rigidbody;
     [SerializeField] protected UnitTeam m_Team;
     [SerializeField] protected bool m_IsBase = false;
+    protected Action<float> m_OnDestory = null;
     
     
 
@@ -44,6 +46,10 @@ public class UnitController : MonoBehaviour
 
     }
 
+    public void AddOnDestoryAction(Action<float> onDestory){
+        m_OnDestory = onDestory;
+    }
+
     public void SetHp(float hp){
         if(m_Hp<=0){
             return;
@@ -55,6 +61,7 @@ public class UnitController : MonoBehaviour
             m_Unit.transform.localScale = Vector3.one * ( Mathf.Min( Mathf.Max(1, 1 + m_Hp*0.1f) ,3));
 
         if(hp<=0){
+            m_OnDestory?.Invoke(0.5f);
             Destroy(m_Unit,0.5f);
         }
     }

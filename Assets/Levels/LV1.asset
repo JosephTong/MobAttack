@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afb67eb0c20863488ddcc7962cb91a7, type: 3}
+  m_Name: LV1
+  m_EditorClassIdentifier: 
+  AllObstacle: {fileID: 2678212704547500777, guid: 5a1b5871f6af0fc4ca7b564d84d3e308,
+    type: 3}
+  NumberPanels:
+  - Pos: {x: -1.5, y: 0.5, z: -3}
+    Scale: {x: 0.16, y: 0.100000024, z: 0.100000024}
+    Operation: 2
+    Number: 3.5
+  - Pos: {x: 1.5, y: 0.5, z: -3}
+    Scale: {x: 0.16, y: 0.100000024, z: 0.100000024}
+    Operation: 0
+    Number: 2
+  - Pos: {x: 1.5, y: 0.5, z: 1.7}
+    Scale: {x: 0.16, y: 0.100000024, z: 0.100000024}
+    Operation: 1
+    Number: 2
+  EnemyBases:
+  - MainPos: {x: 1, y: 0, z: 6}
+    Hp: 100
+    TimePerShot: 5
+    SpawnCountPerShot: 5
+  - MainPos: {x: -1, y: 0, z: 6}
+    Hp: 100
+    TimePerShot: 5
+    SpawnCountPerShot: 5

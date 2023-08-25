@@ -6,14 +6,18 @@ using UnityEngine;
 [Serializable]
 public class CannonController : MonoBehaviour
 {
-    [SerializeField] private float m_TimePerShot = 0.35f;
-    [SerializeField] private GameObject m_UnitPrefab;
-    [SerializeField] private Transform m_SpawnPoint;
-    [SerializeField] private Transform m_UnitParent;
-    [SerializeField] private int m_SpawnCountPerShot = 1;
+    [SerializeField] protected float m_TimePerShot = 0.35f;
+    [SerializeField] protected GameObject m_UnitPrefab;
+    [SerializeField] protected Transform m_SpawnPoint;
+    [SerializeField] protected Transform m_UnitParent;
+    [SerializeField] protected int m_SpawnCountPerShot = 1;
     private float m_WaitTime = 0;
     // Start is called before the first frame update
 
+    public void Init(float timePerShot, int spawnPerShot){
+        m_TimePerShot = timePerShot;
+        m_SpawnCountPerShot = spawnPerShot;
+    }
 
     // Update is called once per frame
     void FixedUpdate()

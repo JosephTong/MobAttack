@@ -7,19 +7,26 @@ using UnityEngine.UI;
 public class MainGameManager : MonoBehaviour
 {
     private static MainGameManager Instance = null;
-    // increase by one everytime a new number panel spawn
-    private int m_NumberPanelIndex = 0;
-    private List<GameObject> m_AllLevel = new List<GameObject>();
-    [SerializeField] private GameObject m_LevelBtnPrefab;
-    [SerializeField] private Transform m_LevelGridParent;
+
+    // In Game
+    [SerializeField] private List<LevelScriptable> m_AllLevel = new List<LevelScriptable>();
+    [SerializeField] private Transform m_ObstacleParent;
+    [SerializeField] private Transform m_EnemyUnitParent;
+    [SerializeField] private Transform m_PlayerUnitParent;
+    [SerializeField] private Transform m_EnemyBaseParent;
+    [SerializeField] private GameObject m_EnemyBasePrefab;
+    [SerializeField] private Transform m_NumberPanelParent;
+    [SerializeField] private GameObject m_NumberPanelPrefab;
+    [SerializeField] private List<Vector3> m_AllEnemyBasePos = new List<Vector3>();
 
     
+    // UI
+    [SerializeField] private GameObject m_LevelBtnPrefab;
+    [SerializeField] private Transform m_LevelGridParent;
     [SerializeField] private GameObject m_LevelSelect;
     [SerializeField] private GameObject m_MainMenu;
     [SerializeField] private GameObject m_LosePanel;
     [SerializeField] private GameObject m_WinPanel;
-
-
     [SerializeField] private Button m_ExitBtn;
     [SerializeField] private Button m_StartGameBtn;
     [SerializeField] private Button m_ExitFromLevelSelectBtn;
@@ -48,14 +55,89 @@ public class MainGameManager : MonoBehaviour
         // spawn level
         for (int i = 0; i < m_AllLevel.Count; i++)
         {
+            int index = i;
             var newLevelBtn = Instantiate(m_LevelBtnPrefab, m_LevelGridParent);
-            newLevelBtn.GetComponent<LevelBtn>().m_Text.text = i.ToSafeString();
+            newLevelBtn.GetComponent<LevelBtn>().m_Text.text = (index+1).ToSafeString();
+            newLevelBtn.GetComponent<Button>().onClick.AddListener(()=>SpawnLevel(index));
+
 
         }
         OnClickBackFromLevelSelect();
         m_ExitBtn.onClick.AddListener(OnClickExitGame);
         m_StartGameBtn.onClick.AddListener(OnClickStartGame);
         m_ExitFromLevelSelectBtn.onClick.AddListener(OnClickBackFromLevelSelect);
+    }
+
+    private void SpawnLevel(int index){
+        var targetLevel = m_AllLevel[index];
+
+        // desotry all obstacle
+        for (int i = 0; i < m_ObstacleParent.childCount; i++)
+        {
+            Destroy(m_ObstacleParent.GetChild(i).gameObject);
+        }
+
+        // spawn obstacle 
+        Instantiate(targetLevel.AllObstacle, m_ObstacleParent);
+
+        // desotry all number panel
+        for (int i = 0; i < m_NumberPanelParent.childCount; i++)
+        {
+            Destroy(m_NumberPanelParent.GetChild(i).gameObject);
+        }
+
+        // spawn all number panel
+        for (int i = 0; i < targetLevel.NumberPanels.Count; i++)
+        {
+            var numberPanelId = i;
+            var targetData = targetLevel.NumberPanels[numberPanelId];
+            GameObject newNumberPanel = Instantiate(m_NumberPanelPrefab, m_ObstacleParent);
+            var numberPanelScript = newNumberPanel.GetComponent<NumberPanelParent>().NumberPanel;
+
+            numberPanelScript.Id = numberPanelId;
+            numberPanelScript.Number = targetData.Number;
+            numberPanelScript.Operation = targetData.Operation;
+            newNumberPanel.transform.position = targetData.Pos;
+            newNumberPanel.transform.localScale = targetData.Scale;
+        }
+
+        // destory all enemy unit
+        for (int i = 0; i < m_EnemyUnitParent.childCount; i++)
+        {
+            Destroy(m_EnemyUnitParent.GetChild(i).gameObject);
+        }
+
+        // destory all player unit
+        for (int i = 0; i < m_PlayerUnitParent.childCount; i++)
+        {
+            Destroy(m_PlayerUnitParent.GetChild(i).gameObject);
+        }
+
+        // destory all base 
+        for (int i = 0; i < m_EnemyBaseParent.childCount; i++)
+        {
+            Destroy(m_EnemyBaseParent.GetChild(i).gameObject);
+        }
+        m_AllEnemyBasePos.Clear();
+
+        // spawn all enemy base
+        for (int i = 0; i < targetLevel.EnemyBases.Count; i++)
+        {
+            var targetData = targetLevel.EnemyBases[i];
+            GameObject newEnemyBase = Instantiate(m_EnemyBasePrefab, m_EnemyBaseParent);
+            newEnemyBase.transform.position = targetData.MainPos;
+            var cannon = newEnemyBase.GetComponent<EnemyBaseParent>().Cannon;
+            cannon.Init(targetData.TimePerShot,targetData.SpawnCountPerShot);
+            var unit = newEnemyBase.GetComponent<EnemyBaseParent>().Unit;
+            unit.Init(targetData.Hp,0,UnitTeam.Enemy,unit.gameObject);
+            m_AllEnemyBasePos.Add(targetData.MainPos);
+        }
+
+
+        // turn off ui
+        TurnOffAllPanel();
+
+        m_IsStart = true;
     }
 
     
