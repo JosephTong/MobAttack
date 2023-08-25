@@ -70,7 +70,7 @@ public class PlayerUnit : UnitController
             if (collision.gameObject.TryGetComponent<UnitController>(out UnitController hitedUnit))
             {
                 float damage = Mathf.Min(GetHp(), hitedUnit.GetHp());
-                SetHp(GetHp() - damage);
+                SetHp(GetHp() - Mathf.Max(damage,0));
                 hitedUnit.SetHp(hitedUnit.GetHp() - damage);
             }
         }

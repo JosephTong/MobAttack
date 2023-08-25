@@ -21,6 +21,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] protected UnitTeam m_Team;
     [SerializeField] protected bool m_IsBase = false;
     protected Action<float> m_OnDestory = null;
+    protected Action<float> m_OnHpChange = null;
     
     
 
@@ -29,6 +30,7 @@ public class UnitController : MonoBehaviour
         m_Speed = speed; 
         m_Team = team;
         m_Unit = gameObject;
+        SetHp(hp);
         //m_Unit.transform.localScale = Vector3.one * (Mathf.Max(1,m_Hp));
     }
 
@@ -44,8 +46,10 @@ public class UnitController : MonoBehaviour
 
     }
 
-    public void AddOnDestoryAction(Action<float> onDestory){
+    public void AddAction(Action<float> onDestory,Action<float> onHpChange){
         m_OnDestory = onDestory;
+        m_OnHpChange = onHpChange;
+        SetHp(m_Hp);
     }
 
     public void SetHp(float hp){
@@ -55,13 +59,15 @@ public class UnitController : MonoBehaviour
 
         m_Hp = hp;
 
+        m_OnHpChange?.Invoke(Mathf.Max(0, hp));
+
         if(!m_IsBase)
-            m_Unit.transform.localScale = Vector3.one * ( Mathf.Min( Mathf.Max(1, 1 + m_Hp*0.1f) ,3));
+            m_Unit.transform.localScale = Vector3.one * ( Mathf.Min( Mathf.Max(1, 1 + (m_Hp-1)*0.1f) ,3));
 
         if(hp<=0){
             if(!m_IsBase)
                 m_Model.material = m_DisabledMaterial;
-                
+
             m_OnDestory?.Invoke(0.5f);
             Destroy(m_Unit,0.5f);
         }
