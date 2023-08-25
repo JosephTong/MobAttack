@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2deb49905757c5446aa3ba00747c1ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DisabledMaterial: {fileID: 2100000, guid: b04e3483477463a4fbb828eaa922c6d5, type: 2}
+  m_Model: {fileID: 5530501162580379367}
   m_Unit: {fileID: 4186998930673107258}
   m_Hp: 1
   m_Speed: 2.5

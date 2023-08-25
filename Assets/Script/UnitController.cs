@@ -12,6 +12,8 @@ public enum UnitTeam
 [System.Serializable]
 public class UnitController : MonoBehaviour
 {
+    [SerializeField] protected Material m_DisabledMaterial;
+    [SerializeField] protected MeshRenderer m_Model;
     [SerializeField] protected GameObject m_Unit;
     [SerializeField] protected float m_Hp = 1;
     [SerializeField] protected float m_Speed = 1;
@@ -57,6 +59,9 @@ public class UnitController : MonoBehaviour
             m_Unit.transform.localScale = Vector3.one * ( Mathf.Min( Mathf.Max(1, 1 + m_Hp*0.1f) ,3));
 
         if(hp<=0){
+            if(!m_IsBase)
+                m_Model.material = m_DisabledMaterial;
+                
             m_OnDestory?.Invoke(0.5f);
             Destroy(m_Unit,0.5f);
         }
