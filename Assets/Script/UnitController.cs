@@ -36,11 +36,7 @@ public class UnitController : MonoBehaviour
         if(m_Hp<=0|| m_IsBase || !MainGameManager.GetInstance().IsGameStart())
             return;
 
-        m_Rigidbody.velocity = new Vector3(
-            0,
-            0,
-            m_Speed
-        );
+        m_Rigidbody.velocity =  m_Speed * m_Rigidbody.transform.forward;
 
         //m_Rigidbody.AddForce(m_Unit.forward *m_Speed*Time.deltaTime);
 

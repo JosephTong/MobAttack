@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerUnit : UnitController
 {
     private List<int> m_CollidedId = new List<int>();
-    private bool m_IsAuto = false;
     private void Start()
     {
         SetHp(GetHp());
@@ -53,9 +51,13 @@ public class PlayerUnit : UnitController
                     }
                 }
             }
-        }else if (collision.gameObject.layer == 14){
+        }
+    }
+
+    void OnTriggerStay(Collider collision) {
+        if (collision.gameObject.layer == 14){
             // auto
-            m_IsAuto = true;
+            m_Rigidbody.transform.LookAt(MainGameManager.GetInstance().GetClosestEnemyBasePos(m_Rigidbody.transform.position));
         }
     }
 
