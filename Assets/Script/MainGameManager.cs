@@ -140,6 +140,21 @@ public class MainGameManager : MonoBehaviour
         m_IsStart = true;
     }
 
+    public Transform GetEnemyUnitParent(){
+        return m_EnemyUnitParent;
+    }
+
+    public Vector3 GetClosestEnemyBasePos(Vector3 unitPos){
+        Vector3 targetPos = Vector3.one*999f;
+        for (int i = 0; i < m_AllEnemyBasePos.Count; i++)
+        {
+            float toOldPos = Vector3.Distance(unitPos, targetPos);
+            float toNewPos = Vector3.Distance(unitPos, m_AllEnemyBasePos[i]);
+            targetPos = toNewPos<toOldPos?m_AllEnemyBasePos[i]:targetPos;
+        }
+        return targetPos;
+    }
+
     
     private void TurnOffAllPanel(){
         m_MainMenu.SetActive(false);

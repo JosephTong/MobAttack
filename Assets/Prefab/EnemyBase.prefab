@@ -213,6 +213,7 @@ MonoBehaviour:
     type: 3}
   m_SpawnPoint: {fileID: 1872412799164019032}
   m_UnitParent: {fileID: 0}
+  m_IsEnemy: 1
   m_SpawnCountPerShot: 10
 --- !u!1 &8941122545905242840
 GameObject:

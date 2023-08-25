@@ -10,6 +10,7 @@ public class CannonController : MonoBehaviour
     [SerializeField] protected GameObject m_UnitPrefab;
     [SerializeField] protected Transform m_SpawnPoint;
     [SerializeField] protected Transform m_UnitParent;
+    [SerializeField] protected bool m_IsEnemy = false;
     [SerializeField] protected int m_SpawnCountPerShot = 1;
     private float m_WaitTime = 0;
     // Start is called before the first frame update
@@ -17,6 +18,9 @@ public class CannonController : MonoBehaviour
     public void Init(float timePerShot, int spawnPerShot){
         m_TimePerShot = timePerShot;
         m_SpawnCountPerShot = spawnPerShot;
+        if(m_IsEnemy){
+            m_UnitParent = MainGameManager.GetInstance().GetEnemyUnitParent();
+        }
     }
 
     // Update is called once per frame
